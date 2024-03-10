@@ -1,0 +1,25 @@
+apiVersion: csdp.codefresh.io/v1
+kind: PromotionFlow
+metadata:
+  name: base-flow2
+  annotations:
+    version: 0.0.1
+    description: 'base-flow2'
+spec:
+  triggerEnvironment: my-env
+  postTrigger: 'post-action'
+  steps:
+  - environment: staging
+    dependsOn:
+    - my-env
+    policy:
+      preAction: 'pre-action'
+      postAction: 'post-action'
+      action: commit 
+  - environment: production
+    dependsOn:
+    - staging
+    policy:
+      preAction: 'pre-action'
+      postAction: 'post-action'
+      action: commit
